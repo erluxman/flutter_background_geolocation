@@ -19,9 +19,6 @@ import 'config/transistor_auth.dart';
 
 import 'registration_view.dart';
 import 'hello_world/app.dart';
-import 'advanced/app.dart';
-import 'package:flutter_background_geolocation_example/advanced/util/dialog.dart'
-    as util;
 
 class HomeApp extends StatefulWidget {
   @override
@@ -104,7 +101,7 @@ class _HomeViewState extends State<_HomeView> {
   }
 
   void _showRegistration() async {
-    bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
+   // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
 
     final result = await Navigator.of(context).push(MaterialPageRoute<Map>(
         fullscreenDialog: true,
@@ -168,14 +165,11 @@ class _HomeViewState extends State<_HomeView> {
       case HelloWorldApp.NAME:
         app = new HelloWorldApp();
         break;
-      case AdvancedApp.NAME:
-        app = new AdvancedApp();
-        break;
       default:
         return;
         break;
     }
-    bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
+    //bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
     runApp(app);
   }
 
@@ -222,14 +216,11 @@ class _HomeViewState extends State<_HomeView> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
-                                _buildApplicationButton('Hello World App',
+                                _buildApplicationButton('Start tracker',
                                     onPressed: () {
                                   _onClickNavigate("hello_world");
                                 }),
-                                _buildApplicationButton('Advanced App',
-                                    onPressed: () {
-                                  _onClickNavigate("advanced");
-                                })
+                               
                               ]))),
                   Container(
                       color: Colors.white,

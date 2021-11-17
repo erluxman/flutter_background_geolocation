@@ -6,7 +6,6 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 import 'package:background_fetch/background_fetch.dart';
 
 import 'package:flutter_background_geolocation_example/app.dart';
-import 'advanced/app.dart';
 import 'hello_world/app.dart';
 
 import 'config/transistor_auth.dart';
@@ -135,9 +134,6 @@ void main() {
     }
 
     switch (appName) {
-      case AdvancedApp.NAME:
-        runApp(new AdvancedApp());
-        break;
       case HelloWorldApp.NAME:
         runApp(new HelloWorldApp());
         break;

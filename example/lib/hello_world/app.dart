@@ -27,7 +27,7 @@ class HelloWorldApp extends StatelessWidget {
       title: 'BackgroundGeolocation Demo',
       theme: theme.copyWith(
           bottomAppBarColor: Colors.amberAccent,
-          colorScheme: theme.colorScheme.copyWith(secondary:Colors.black),
+          colorScheme: theme.colorScheme.copyWith(secondary: Colors.black),
           primaryTextTheme: Theme.of(context).primaryTextTheme.apply(
                 bodyColor: Colors.black,
               )),
@@ -239,9 +239,7 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.home, color: Colors.black),
-            onPressed: _onClickHome),
+        leading: BackButton(onPressed: _onClickHome),
         title: const Text('BG Geo'),
         foregroundColor: Colors.black,
         actions: <Widget>[
