@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_background_geolocation_example/transistor_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
 
-import './config/env.dart';
-
-class RegistrationView extends StatefulWidget {
+class UserInfoScreen extends StatefulWidget {
   @override
-  State createState() => _RegistrationViewState();
+  State createState() => _UserInfoScreenState();
 }
 
-class _RegistrationViewState extends State<RegistrationView> {
+class _UserInfoScreenState extends State<UserInfoScreen> {
   static const USERNAME_REGEXP = r"^[a-zA-Z0-9_-]*$";
 
   bg.DeviceInfo _deviceInfo;
@@ -49,12 +48,12 @@ class _RegistrationViewState extends State<RegistrationView> {
   }
 
   void _onClickClose() {
-   // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("CLOSE"));
+    // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("CLOSE"));
     Navigator.pop(context, null);
   }
 
   void _onClickSave() async {
-   // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("CLOSE"));
+    // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("CLOSE"));
     //Navigator.of(context).pop();
     if (!_formKey.currentState.validate()) {
       return;
@@ -66,10 +65,10 @@ class _RegistrationViewState extends State<RegistrationView> {
     await prefs.setString("orgname", _orgname);
     await prefs.setString("username", _username);
 
-    await bg.TransistorAuthorizationToken.destroy(ENV.TRACKER_HOST);
+    await bg.TransistorAuthorizationToken.destroy(TRACKER_HOST);
     bg.TransistorAuthorizationToken token =
         await bg.TransistorAuthorizationToken.findOrCreate(
-            _orgname, _username, ENV.TRACKER_HOST);
+            _orgname, _username, TRACKER_HOST);
 
     bg.BackgroundGeolocation.setConfig(
         bg.Config(transistorAuthorizationToken: token));
@@ -109,11 +108,11 @@ class _RegistrationViewState extends State<RegistrationView> {
           iconTheme: IconThemeData(color: Colors.black),
           actions: <Widget>[
             TextButton(
-                onPressed: _onClickSave,
-                child: Text("REGISTER",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue)),
-                )
+              onPressed: _onClickSave,
+              child: Text("REGISTER",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.blue)),
+            )
           ]),
       body: Form(
         key: _formKey,
@@ -177,26 +176,27 @@ class _RegistrationViewState extends State<RegistrationView> {
                     hintText: 'eg. Github username or initials'),
               ),
               Card(
-                  margin: EdgeInsets.only(top: 20.0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  child: Container(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                            "Please provide an Organization name and User identifier to register your device with the Demo Server."),
-                        const Text(""),
-                        const Text(
-                            "You will access your results at the following url:"),
-                        Text("${ENV.TRACKER_HOST}/$_orgname",
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ),),
+                margin: EdgeInsets.only(top: 20.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                          "Please provide an Organization name and User identifier to register your device with the Demo Server."),
+                      const Text(""),
+                      const Text(
+                          "You will access your results at the following url:"),
+                      Text("$TRACKER_HOST/$_orgname",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

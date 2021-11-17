@@ -15,10 +15,10 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 import 'package:url_launcher/url_launcher.dart';
 
 import 'config/ENV.dart';
-import 'config/transistor_auth.dart';
+import 'transistor_service.dart';
 
-import 'registration_view.dart';
-import 'hello_world/app.dart';
+import 'user_info_screen.dart';
+import 'tracking_screen.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -37,16 +37,16 @@ class _HomeAppState extends State<HomeApp> {
     return new MaterialApp(
         theme: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(secondary:Colors.black)),
-        home: new _HomeView());
+        home: new _HomeScreen());
   }
 }
 
-class _HomeView extends StatefulWidget {
+class _HomeScreen extends StatefulWidget {
   @override
-  _HomeViewState createState() => new _HomeViewState();
+  _HomeScreenState createState() => new _HomeScreenState();
 }
 
-class _HomeViewState extends State<_HomeView> {
+class _HomeScreenState extends State<_HomeScreen> {
   static const USERNAME_REGEXP = r"^[a-zA-Z0-9_-]*$";
 
   bg.DeviceInfo _deviceInfo;
@@ -106,7 +106,7 @@ class _HomeViewState extends State<_HomeView> {
     final result = await Navigator.of(context).push(MaterialPageRoute<Map>(
         fullscreenDialog: true,
         builder: (BuildContext context) {
-          return RegistrationView();
+          return UserInfoScreen();
         }));
 
     if (result != null) {
@@ -162,8 +162,8 @@ class _HomeViewState extends State<_HomeView> {
 
     Widget app;
     switch (appName) {
-      case HelloWorldApp.NAME:
-        app = new HelloWorldApp();
+      case TrackingScreen.NAME:
+        app = new TrackingScreen();
         break;
       default:
         return;

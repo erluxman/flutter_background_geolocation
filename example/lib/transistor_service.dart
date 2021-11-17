@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
-import 'ENV.dart';
-import '../app.dart';
+import 'config/ENV.dart';
+import 'home_screen.dart';
 
 void _onHttp(bg.HttpEvent event) async {
   switch (event.status) {
@@ -83,3 +83,5 @@ class TransistorAuth {
         params: {}));
   }
 }
+
+const TRACKER_HOST = 'http://tracker.transistorsoft.com';

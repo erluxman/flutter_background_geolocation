@@ -5,13 +5,11 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
     as bg;
 import 'package:background_fetch/background_fetch.dart';
 
-import 'package:flutter_background_geolocation_example/app.dart';
-import 'hello_world/app.dart';
+import 'package:flutter_background_geolocation_example/home_screen.dart';
+import 'tracking_screen.dart';
 
-import 'config/transistor_auth.dart';
-import 'config/env.dart';
+import 'transistor_service.dart';
 
-/// Receive events from BackgroundGeolocation in Headless state.
 void backgroundGeolocationHeadlessTask(bg.HeadlessEvent headlessEvent) async {
   print('📬 --> $headlessEvent');
 
@@ -83,7 +81,7 @@ void backgroundGeolocationHeadlessTask(bg.HeadlessEvent headlessEvent) async {
       bg.AuthorizationEvent event = headlessEvent.event;
       print(event);
       bg.BackgroundGeolocation.setConfig(
-          bg.Config(url: "${ENV.TRACKER_HOST}/api/locations"));
+          bg.Config(url: "$TRACKER_HOST/api/locations"));
       break;
   }
 }
@@ -134,8 +132,8 @@ void main() {
     }
 
     switch (appName) {
-      case HelloWorldApp.NAME:
-        runApp(new HelloWorldApp());
+      case TrackingScreen.NAME:
+        runApp(new TrackingScreen());
         break;
       default:
         // Default app.  Renders the application selector home page.

@@ -5,18 +5,13 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
-import '../app.dart';
-import '../config/ENV.dart';
-
-////
-// For pretty-printing locations as JSON
-// @see _onLocation
-//
+import 'home_screen.dart';
+import 'config/ENV.dart';
 import 'dart:convert';
 
 JsonEncoder encoder = new JsonEncoder.withIndent("     ");
 
-class HelloWorldApp extends StatelessWidget {
+class TrackingScreen extends StatelessWidget {
   static const String NAME = 'hello_world';
 
   // This widget is the root of your application.
