@@ -198,7 +198,7 @@ class _RegistrationViewState extends State<RegistrationView> {
                                 fontWeight: FontWeight.bold)),
                       ],
                     ),
-                  )),
+                  ),),
             ],
           ),
         ),
