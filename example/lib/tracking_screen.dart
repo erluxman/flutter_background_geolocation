@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_geolocation_example/transistor_service.dart';
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
 import 'home_screen.dart';
-import 'config/ENV.dart';
 import 'dart:convert';
 
 JsonEncoder encoder = new JsonEncoder.withIndent("     ");
@@ -72,7 +72,7 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
     // Fetch a Transistor demo server Authorization token for tracker.transistorsoft.com.
     bg.TransistorAuthorizationToken token =
         await bg.TransistorAuthorizationToken.findOrCreate(
-            orgname, username, ENV.TRACKER_HOST);
+            orgname, username, TRACKER_HOST);
 
     // 1.  Listen to events (See docs for all 12 available events).
     bg.BackgroundGeolocation.onLocation(_onLocation, _onLocationError);
@@ -97,13 +97,13 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
                     "This app collects location data to enable recording your trips to work and calculate distance-travelled.",
                 positiveAction: 'Change to "{backgroundPermissionOptionLabel}"',
                 negativeAction: 'Cancel'),
-            url: "${ENV.TRACKER_HOST}/api/locations",
+            url: "TRACKER_HOST/api/locations",
             authorization: bg.Authorization(
                 // <-- demo server authenticates with JWT
                 strategy: bg.Authorization.STRATEGY_JWT,
                 accessToken: token.accessToken,
                 refreshToken: token.refreshToken,
-                refreshUrl: "${ENV.TRACKER_HOST}/api/refresh_token",
+                refreshUrl: "TRACKER_HOST/api/refresh_token",
                 refreshPayload: {'refresh_token': '{refreshToken}'}),
             stopOnTerminate: false,
             startOnBoot: true,
@@ -215,7 +215,7 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
     print('[${bg.Event.AUTHORIZATION}] = $event');
 
     bg.BackgroundGeolocation.setConfig(
-        bg.Config(url: ENV.TRACKER_HOST + '/api/locations'));
+        bg.Config(url: TRACKER_HOST + '/api/locations'));
   }
 
   void _onProviderChange(bg.ProviderChangeEvent event) {

@@ -14,7 +14,6 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
     as bg;
 import 'package:url_launcher/url_launcher.dart';
 
-import 'config/ENV.dart';
 import 'transistor_service.dart';
 
 import 'user_info_screen.dart';
@@ -36,7 +35,7 @@ class _HomeAppState extends State<HomeApp> {
     final ThemeData theme = ThemeData();
     return new MaterialApp(
         theme: theme.copyWith(
-            colorScheme: theme.colorScheme.copyWith(secondary:Colors.black)),
+            colorScheme: theme.colorScheme.copyWith(secondary: Colors.black)),
         home: new _HomeScreen());
   }
 }
@@ -101,7 +100,7 @@ class _HomeScreenState extends State<_HomeScreen> {
   }
 
   void _showRegistration() async {
-   // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
+    // bg.BackgroundGeolocation.playSound(util.Dialog.getSoundId("OPEN"));
 
     final result = await Navigator.of(context).push(MaterialPageRoute<Map>(
         fullscreenDialog: true,
@@ -180,7 +179,7 @@ class _HomeScreenState extends State<_HomeScreen> {
   }
 
   void _launchUrl() async {
-    String url = '${ENV.TRACKER_HOST}/$_orgname';
+    String url = 'TRACKER_HOST/$_orgname';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -192,10 +191,9 @@ class _HomeScreenState extends State<_HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Background Geolocation'),
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.amberAccent
-        ),
+            title: const Text('Background Geolocation'),
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.amberAccent),
         body: Container(
             color: Colors.black87,
             padding: EdgeInsets.only(top: 20.0),
@@ -220,7 +218,6 @@ class _HomeScreenState extends State<_HomeScreen> {
                                     onPressed: () {
                                   _onClickNavigate("hello_world");
                                 }),
-                               
                               ]))),
                   Container(
                       color: Colors.white,
@@ -234,7 +231,7 @@ class _HomeScreenState extends State<_HomeScreen> {
                                 child: Text(
                                     "These apps will post locations to Transistor Software's demo server.  You can view your tracking in the browser by visiting:")),
                             Center(
-                                child: Text("${ENV.TRACKER_HOST}/$_orgname",
+                                child: Text("TRACKER_HOST/$_orgname",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold))),
                             Container(
@@ -253,32 +250,31 @@ class _HomeScreenState extends State<_HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   SizedBox(
-                    width: 140,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _showRegistration();
-                      },
-                      child: Text('Edit'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
-                      )
-                  )),
-                      //color: Colors.redAccent,
-                      //textColor: Colors.white),
+                      width: 140,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            _showRegistration();
+                          },
+                          child: Text('Edit'),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.redAccent),
+                          ))),
+                  //color: Colors.redAccent,
+                  //textColor: Colors.white),
                   SizedBox(
                       width: 140,
                       child: ElevatedButton(
-                        onPressed: () {
-                          _launchUrl();
-                        },
-                        child: Text('View Tracking'),
-                        style: ButtonStyle(
-                            //foregroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue))
-                        )
-                  )
-                      //color: Colors.blue,
-                      //textColor: Colors.white),
+                          onPressed: () {
+                            _launchUrl();
+                          },
+                          child: Text('View Tracking'),
+                          style: ButtonStyle(
+                              //foregroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blue))))
+                  //color: Colors.blue,
+                  //textColor: Colors.white),
                 ])));
   }
 

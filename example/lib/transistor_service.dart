@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
-import 'config/ENV.dart';
 import 'home_screen.dart';
 
 void _onHttp(bg.HttpEvent event) async {
@@ -11,7 +10,7 @@ void _onHttp(bg.HttpEvent event) async {
     case 403:
     case 406:
       print("TransistorAuth] onHttp status ${event.status}");
-      await bg.TransistorAuthorizationToken.destroy(ENV.TRACKER_HOST);
+      await bg.TransistorAuthorizationToken.destroy(TRACKER_HOST);
       bool success = await TransistorAuth.register();
       if (success) {
         bg.BackgroundGeolocation.sync().catchError((error) {
@@ -48,7 +47,7 @@ class TransistorAuth {
 
       bg.TransistorAuthorizationToken jwt =
           await bg.TransistorAuthorizationToken.findOrCreate(
-              orgname, username, ENV.TRACKER_HOST);
+              orgname, username, TRACKER_HOST);
 
       await bg.BackgroundGeolocation.setConfig(
           bg.Config(transistorAuthorizationToken: jwt));
@@ -71,7 +70,7 @@ class TransistorAuth {
 
   static void _migrateConfig() async {
     print("[TransistorAuth] migrateConfig");
-    await bg.TransistorAuthorizationToken.destroy(ENV.TRACKER_HOST);
+    await bg.TransistorAuthorizationToken.destroy(TRACKER_HOST);
     bg.BackgroundGeolocation.reset(bg.Config(
         debug: true,
         logLevel: bg.Config.LOG_LEVEL_VERBOSE,
@@ -79,7 +78,7 @@ class TransistorAuth {
         distanceFilter: 10.0,
         stopOnTerminate: false,
         startOnBoot: true,
-        url: "${ENV.TRACKER_HOST}/api/locations",
+        url: "$TRACKER_HOST/api/locations",
         params: {}));
   }
 }
